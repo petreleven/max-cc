@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ initiative.Title }} – ClimateConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .pb { background: linear-gradient(90deg,#10b981,#34d399) }
+        .ar { box-shadow: 0 0 0 2px #064e3b, 0 0 0 4px #10b981 }
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(31, 41, 55, 1); }
+        @keyframes glow { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        .accent-glow { position: absolute; top: -50px; right: -50px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%); z-index: 0; pointer-events: none; animation: glow 6s infinite; }
+        .img-card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen selection:bg-emerald-500/30">
+
+    <nav class="bg-gray-950/95 border-b border-gray-800 sticky top-0 z-50 h-14 flex items-center">
+        <div class="max-w-5xl mx-auto px-5 w-full flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-gray-400 hover:text-white transition text-sm flex items-center gap-1">
+                    ← <span class="hidden sm:inline">Back to Feed</span>
+                </a>
+                <div class="w-px h-5 bg-gray-700"></div>
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px]">🌱</div>
+                    <span class="font-bold text-sm tracking-tight">Climate<span class="text-emerald-400">Connect</span></span>
+                </div>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-xs font-bold ar">AK</div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-5 py-10 relative">
+        <div class="accent-glow"></div>
+
+        <header class="relative z-10 mb-12">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-[10px] bg-emerald-900/40 text-emerald-400 border border-emerald-800/50 px-3 py-1 rounded-full font-extrabold uppercase tracking-widest">
+                    {{ initiative.Tag }}
+                </span>
+                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">ID: #00{{ initiative.id }}</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tighter mb-8 leading-none">
+                {{ initiative.Title }}
+            </h1>
+
+            <div class="flex flex-wrap gap-8 items-center border-y border-gray-800/50 py-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-lg">🌍</div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Impact Area</p>
+                        <p class="text-sm font-semibold text-emerald-400">{{ initiative.Tag }}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gray-800/50 border border-gray-700 flex items-center justify-center text-lg">📅</div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Registered</p>
+                        <p class="text-sm font-semibold text-gray-200">{{ initiative.Date }}</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 relative z-10">
+            
+            <div class="lg:col-span-2 space-y-12">
+                
+                <section>
+                    <h2 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mb-5 flex items-center gap-3">
+                        <span class="w-10 h-px bg-gray-800"></span> Overview
+                    </h2>
+                    <div class="glass rounded-[2rem] p-8 md:p-10 relative overflow-hidden shadow-2xl">
+                        <div class="absolute -top-6 -right-6 p-4 opacity-5 text-9xl">🍃</div>
+                        <p class="text-xl md:text-2xl text-gray-200 leading-relaxed font-medium italic">
+                            "{{ initiative.OverView }}"
+                        </p>
+                    </div>
+                </section>
+
+                {% if initiative.photos %}
+                <section>
+                    <h2 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mb-5 flex items-center gap-3">
+                        <span class="w-10 h-px bg-gray-800"></span> Project Gallery
+                    </h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        {% for photo in initiative.photos %}
+                        <div class="img-card group relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-900 border border-gray-800">
+                            <img 
+                                src="{{ url_for('static', filename='uploads/' + photo.image_filename) }}" 
+                                alt="Initiative Image" 
+                                class="h-full w-full object-cover transition-transform duration-700 ease-in-out"
+                            >
+                            <div class="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                <span class="text-[10px] font-bold text-white uppercase tracking-widest bg-gray-950/80 px-3 py-1.5 rounded-full backdrop-blur-sm">View Image</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+
+                <section>
+                    <h2 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mb-5 flex items-center gap-3">
+                        <span class="w-10 h-px bg-gray-800"></span> Strategic Roadmap
+                    </h2>
+                    <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8">
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            {{ initiative.additional_notes }}
+                        </p>
+                        <p class="text-xs text-emerald-500/60 font-medium">
+                            Status: Verified and active in the local community database.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-[2.5rem] p-8 text-center shadow-2xl shadow-emerald-500/10">
+                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">🤝</div>
+                    <h3 class="text-white text-xl font-bold mb-3 tracking-tight">Support Action</h3>
+                    <p class="text-emerald-50 text-xs leading-relaxed mb-8 opacity-90">Follow this initiative to receive live updates in your feed and get involved in future events.</p>
+                    <button class="w-full bg-white text-emerald-700 font-extrabold py-4 rounded-2xl hover:bg-emerald-50 transition-all transform hover:-translate-y-1 active:scale-95 shadow-lg">
+                        Follow Initiative
+                    </button>
+                </div>
+
+                <div class="glass border border-gray-800 rounded-[2rem] p-8">
+                    <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-6">Initiative Registry</h3>
+                    <div class="space-y-5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500 font-medium">Organizer</span>
+                            <span class="text-xs font-bold text-white">Verified Account</span>
+                        </div>
+                        <div class="h-px bg-gray-800/50 w-full"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500 font-medium">Community Rank</span>
+                            <span class="text-xs font-bold text-emerald-400">Pioneer</span>
+                        </div>
+                        <div class="h-px bg-gray-800/50 w-full"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500 font-medium">Visibility</span>
+                            <span class="text-xs font-bold">Public Domain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="w-full border border-gray-800 text-gray-400 text-xs font-bold py-4 rounded-2xl hover:bg-gray-900 transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                    Share Project
+                </button>
+            </div>
+        </div>
+
+        <footer class="mt-24 pt-12 border-t border-gray-900 text-center">
+            <div class="flex justify-center gap-2 mb-4">
+                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                <div class="w-2 h-2 rounded-full bg-emerald-800"></div>
+                <div class="w-2 h-2 rounded-full bg-emerald-950"></div>
+            </div>
+            <p class="text-[9px] text-gray-700 font-extrabold uppercase tracking-[0.4em]">ClimateConnect Platform &copy; 2026</p>
+        </footer>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ClimateConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .pb { background: linear-gradient(90deg,#10b981,#34d399) }
+        .ar { box-shadow: 0 0 0 2px #064e3b, 0 0 0 4px #10b981 }
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(31, 41, 55, 1); }
+        @keyframes glow { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        .accent-glow { position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%); z-index: 0; pointer-events: none; animation: glow 4s infinite; }
+    </style>
+</head>
+
+<body class="bg-gray-950 text-white min-h-screen p-10">
+    <div class="max-w-xl mx-auto bg-gray-900 border border-gray-800 p-8 rounded-3xl">
+        <h1 class="text-2xl font-bold text-emerald-400 mb-6">Create New Initiative</h1>
+        
+        <form method="post" enctype="multipart/form-data" class="flex flex-col gap-5">
+            <div>
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-2">Title</label>
+                <input name="Title" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white focus:border-emerald-500 outline-none">
+            </div>
+            
+            <div>
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-2">Tag</label>
+                <input name="Tag" placeholder="e.g. Reforestation" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white outline-none">
+            </div>
+
+            <div>
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-2">Upload Photos</label>
+                <input type="file" name="photos" multiple class="text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-900/30 file:text-emerald-400 hover:file:bg-emerald-900/50">
+            </div>
+
+            <div>
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-2">Overview</label>
+                <textarea name="Overview" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white outline-none"></textarea>
+            </div>
+             <div>
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-2">Additional notes</label>
+                <textarea name="additional_notes" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white outline-none"></textarea>
+            </div>
+
+            <button class="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 rounded-2xl transition shadow-lg shadow-emerald-500/20">
+                Upload Initiative
+            </button>
+        </form>
+    </div>
+</body>
